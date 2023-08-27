@@ -5,9 +5,9 @@ import { HomeComponent } from './components/user/home/home.component';
 import { LoginSignupFrameComponent } from './components/common/login-signup-frame/login-signup-frame.component';
 
 const routes: Routes = [
-  {path:'',component:HomeComponent,title:"Home"},
+  {path:'',component:HomeComponent,title:"Justox | Home"},
   {path:"home",redirectTo:'',pathMatch:'full'},
-  {path:'login',component:LoginSignupFrameComponent,title:'Login'}
+  {path:'login',component:LoginSignupFrameComponent,title:'Justox | Login'}
 ];
 
 @NgModule({

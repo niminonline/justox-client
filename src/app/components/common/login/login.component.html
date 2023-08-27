@@ -18,9 +18,10 @@
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
       </mat-form-field>
-
+      <mat-error> {{displayError}}</mat-error>
       <button mat-raised-button color="primary" type="submit">Login</button>
       <button mat-raised-button color="warn" routerLink="/home">Cancel</button>
     </form>
+    <button mat-raised-button (click)="openSnackBar('This is a snack bar message', 'Close')">Show Snack Bar</button>
   </mat-card>
 </div>

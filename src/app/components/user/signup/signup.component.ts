@@ -9,6 +9,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from '../../common/simple-dialog/simple-dialog.component';
 import { DialogData } from 'src/app/interface/interfaces';
+import { UserAPIService } from 'src/app/services/user-api.service';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +17,7 @@ import { DialogData } from 'src/app/interface/interfaces';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {}
+  constructor(private fb: FormBuilder, private dialog: MatDialog,private userApi:UserAPIService) {}
   submitted: boolean = false;
   passwordHide: boolean = true;
   confirmPasswordHide: boolean = true;
@@ -25,7 +26,7 @@ export class SignupComponent {
   ngOnInit() {
     this.signupGroup = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.pattern('^[A-Za-z \\.]+')]],
+        username: ['', [Validators.required, Validators.pattern('^[A-Za-z \\.]+')]],
         email: [
           '',
           [
@@ -56,9 +57,15 @@ export class SignupComponent {
 
   signupSubmit(data: any): void {
     this.submitted = true;
-    console.log(data);
     if (!data.invalid) {
       console.log(data.value);
+      const {username,email,mobile,password} =data.value;
+      const body={username,email,mobile,password};
+      console.log(body);
+      this.userApi.signup(body).subscribe((response)=>{
+        console.log(response);
+      })
+
     } else {
       this.dialog.open(SimpleDialogComponent, {
         width: '400px',

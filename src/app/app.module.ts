@@ -10,6 +10,7 @@ import { LoginComponent } from './components/common/login/login.component';
 import { SignupComponent } from './components/user/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SimpleDialogComponent } from './components/common/simple-dialog/simple-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SimpleDialogComponent } from './components/common/simple-dialog/simple-
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

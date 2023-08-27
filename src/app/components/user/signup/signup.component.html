@@ -5,7 +5,7 @@
     <form [formGroup]="signupGroup" (ngSubmit)="signupSubmit(signupGroup)">
         <mat-form-field appearance="outline">
         <mat-label>Enter your name</mat-label>
-        <input matInput required formControlName="name" />
+        <input matInput required formControlName="username" />
         <mat-error *ngIf="signupGroup.get('name')?.errors?.['required']">Name is required</mat-error>
         <mat-error *ngIf="signupGroup.get('name')?.errors?.['pattern']">Name must contains only alphabets</mat-error>
   
@@ -53,6 +53,7 @@
           
           <mat-error class="passMatchErrorDisplay" *ngIf="signupGroup.get('confirmPassword')?.errors?.['passwordMismatch'] && signupGroup.get('confirmPassword')?.touched &&submitted">Passwords doesn't match</mat-error>
         </mat-form-field>
+        
       <button mat-raised-button color="primary" type="submit" >Signup</button>
     </form>
 
