@@ -3,7 +3,6 @@ import {
   AbstractControl,
   FormBuilder,
   FormGroup,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,16 +16,24 @@ import { UserAPIService } from 'src/app/services/user-api.service';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
-  constructor(private fb: FormBuilder, private dialog: MatDialog,private userApi:UserAPIService) {}
+  constructor(
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private userApi: UserAPIService
+  ) {}
   submitted: boolean = false;
   passwordHide: boolean = true;
   confirmPasswordHide: boolean = true;
   signupGroup!: FormGroup;
+  selectedImage: File | null = null;
 
   ngOnInit() {
     this.signupGroup = this.fb.group(
       {
-        username: ['', [Validators.required, Validators.pattern('^[A-Za-z \\.]+')]],
+        username: [
+          '',
+          [Validators.required, Validators.pattern('^[A-Za-z \\.]+')],
+        ],
         email: [
           '',
           [
@@ -45,9 +52,21 @@ export class SignupComponent {
           ],
         ],
         confirmPassword: ['', [Validators.required]],
+        image: [''],
       },
       { validators: this.passwordMatchValidator }
     );
+  }
+
+  onImageChange(event: any) {
+    console.log(event);
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      if (file) {
+        this.selectedImage = file;
+      }
+      // this.signupGroup.patchValue({ image: file });
+    }
   }
   passwordMatchValidator(group: AbstractControl) {
     if (group.get('password')?.value !== group.get('confirmPassword')?.value) {
@@ -58,14 +77,19 @@ export class SignupComponent {
   signupSubmit(data: any): void {
     this.submitted = true;
     if (!data.invalid) {
-      console.log(data.value);
-      const {username,email,mobile,password} =data.value;
-      const body={username,email,mobile,password};
-      console.log(body);
-      this.userApi.signup(body).subscribe((response)=>{
+      // console.log(data.value);
+      const { username, email, mobile, password } = data.value;
+      const body = {
+        username,
+        email,
+        mobile,
+        password,
+        image: this.selectedImage,
+      };
+      // console.log(body);
+      this.userApi.signup(body).subscribe((response) => {
         console.log(response);
-      })
-
+      });
     } else {
       this.dialog.open(SimpleDialogComponent, {
         width: '400px',

@@ -11,6 +11,8 @@ import { SignupComponent } from './components/user/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SimpleDialogComponent } from './components/common/simple-dialog/simple-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { EditUserComponent } from './components/admin/edit-user/edit-user.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     SignupComponent,
     SimpleDialogComponent,
+    DashboardComponent,
+    EditUserComponent,
     
   ],
   imports: [

@@ -26,3 +26,9 @@ export interface ApiResponse{
   userData?:UserType,
   token?:string
 }
+
+export interface UsersApiResponse {
+  usersData: UserType[];
+  message: string;
+  status: string;
+}

@@ -1,0 +1,69 @@
+<div class="signup-container">
+  <h1 class="heading">Update User</h1>
+  <mat-card class="signupCard">
+
+    <form
+      [formGroup]="signupGroup"
+      (ngSubmit)="updateUser(signupGroup)"
+      enctype="multipart/form-data"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Enter your name</mat-label>
+        <input matInput required formControlName="username" />
+        <mat-error *ngIf="signupGroup.get('name')?.errors?.['required']"
+          >Name is required</mat-error
+        >
+        <mat-error *ngIf="signupGroup.get('name')?.errors?.['pattern']"
+          >Name must contains only alphabets</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Enter your email address</mat-label>
+        <input matInput required formControlName="email" />
+        <mat-error *ngIf="signupGroup.get('email')?.errors?.['required']"
+          >Email is required</mat-error
+        >
+        <mat-error *ngIf="signupGroup.get('email')?.errors?.['pattern']"
+          >Enter a valid email address</mat-error
+        >
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Enter your mobile number</mat-label>
+        <input matInput formControlName="mobile" />
+        <mat-error *ngIf="signupGroup.get('mobile')?.errors?.['required']"
+          >Mobile number is required</mat-error
+        >
+        <mat-error *ngIf="signupGroup.get('mobile')?.errors?.['pattern']"
+          >Enter a valid mobile number</mat-error
+        >
+      </mat-form-field>
+
+      <mat-label> Choose a profile image </mat-label>
+      <input type="file" (change)="onImageChange($event)" accept="image/*" />
+
+      <div class="button-row">
+        <button
+          class="signupButton"
+          mat-raised-button
+          color="primary"
+          type="submit"
+        >
+          Update
+        </button>
+        <button
+          class="cancelButton"
+          mat-raised-button
+          color="warn"
+          (click)="closeDialog()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+
+    <!-- </mat-card-content> -->
+  </mat-card>
+</div>
