@@ -122,8 +122,18 @@
         color="primary"
         type="submit"
       >
-        Signup
+        {{submitButtonName}}
       </button>
+
+      <button
+        class="parentSend"
+        mat-raised-button
+        color="primary"
+        (click)="toParent(signupGroup)"
+      >
+        to parent
+      </button>
+
     </form>
 
     <!-- </mat-card-content> -->

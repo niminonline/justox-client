@@ -1,0 +1,44 @@
+.head{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 10px;
+}
+
+.body{
+    width: 80vw;
+}
+
+.user-card {
+    max-width: 400px;
+    margin: 10px;
+  }
+  
+  .user-image {
+    background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+    background-size: cover;
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+  }
+  
+
+  
+  mat-card-content {
+    margin: 10px;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: center;
+  
+    button {
+      margin: 10px;
+    }
+  }
+.contents{
+    display: flex;
+    justify-content: center;
+}

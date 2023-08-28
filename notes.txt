@@ -1,0 +1,17 @@
+
+-----------------------------
+refresh page
+
+import { Location } from '@angular/common';
+constructor(private location: Location) {}
+  this.location.reload();
+
+Or  
+
+import { Router } from '@angular/router';
+constructor(private router: Router) {}
+refreshPage() {
+  const currentUrl = this.router.url;
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigateByUrl(currentUrl); });
+}

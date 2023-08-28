@@ -1,0 +1,24 @@
+<mat-drawer-container class="sidebar-container" autosize>
+  <mat-drawer #drawer class="sidebar-drawer" mode="side">
+    <ul class="sidebar-menu-list">
+      <li routerLink="/user-home">
+        <mat-icon>home</mat-icon>
+        Home
+      </li>
+      <li routerLink="/user-home/user-profile">
+        <mat-icon>account_box</mat-icon>
+        Profile
+      </li>
+    </ul>
+  </mat-drawer>
+
+  <div class="body">
+    <div class="toggle-button-container">
+      <button type="button" mat-button (click)="drawer.toggle()" title="Menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <router-outlet></router-outlet>
+    
+  </div>
+</mat-drawer-container>

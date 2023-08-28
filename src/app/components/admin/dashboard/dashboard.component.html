@@ -1,6 +1,28 @@
 <h1 class="title">Dashboard</h1>
 <div class="main-body">
+  
+  
+  <div class="add-floating-button" title="Add user" >
+    <button mat-fab color="primary" aria-label="user add button" (click)="addUser()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="search-block">
+
+  <mat-form-field class="search-field-block ">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" [(ngModel)]="searchString" (ngModelChange)="doSearch()" placeholder="Search username or email or mobile">
+    <button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
+
+
+
   <div class="display-users">
+
     <mat-card class="user-card" *ngFor="let item of usersData">
       <mat-card-header>
         <div mat-card-avatar class="user-avatar"></div>

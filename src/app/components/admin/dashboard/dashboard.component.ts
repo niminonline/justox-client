@@ -8,6 +8,8 @@ import { DialogData } from 'src/app/interface/interfaces';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { EditUserComponent } from '../edit-user/edit-user.component';
+import { AddUserComponent } from '../add-user/add-user.component';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -15,14 +17,24 @@ import { EditUserComponent } from '../edit-user/edit-user.component';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
+
+  searchString:string;
   constructor(
     private adminApi: AdminAPIService,
     private dialog: MatDialog,
     private router: Router
-  ) {}
+  ) {
+    this.searchString=''
+  }
   ngOnInit() {
     this.loadUsers();
   }
+
+  addUser(){
+    this.dialog.open(AddUserComponent,{width:'500px',height:'800px'});
+  }
+
+
   usersData!: any;
   loadUsers() {
     this.adminApi.loadUsers().subscribe((response: UsersApiResponse) => {
@@ -31,6 +43,29 @@ export class DashboardComponent {
         // console.log(this.usersData);
       }
     });
+  }
+
+  clearSearch(){
+    this.searchString='';
+    this.loadUsers();
+  }
+
+  doSearch(){
+    if(this.searchString.trim()){
+
+    
+    this.usersData= this.usersData.filter((item:any)=>
+    {
+      return (
+        item.username.toLowerCase().includes(this.searchString.toLowerCase()) ||
+        item.email.toLowerCase().includes(this.searchString.toLowerCase()) ||
+        item.mobile.includes(this.searchString.toLowerCase())
+      );
+  })
+}
+else{
+  this.loadUsers();
+}
   }
 
   deleteUser = (id: string) => {

@@ -11,13 +11,17 @@ export class UserAPIService {
 
   private static readonly baseUrl = 'http://localhost:5000' as const;
 
-  test = () => {
-    return this.http.get(`${UserAPIService.baseUrl}`);
-  };
+  
   login = (data: object):Observable<ApiResponse>  => {
     return this.http.post(`${UserAPIService.baseUrl}/login`, data);
   };
   signup=(data:object):Observable<ApiResponse> => {
     return this.http.post(`${UserAPIService.baseUrl}/signup`,data)
+  }
+  getProfile=(data:object):Observable<ApiResponse> => {
+    return this.http.post(`${UserAPIService.baseUrl}/profile`,data)
+  }
+  updateProfile=(data:object):Observable<ApiResponse> => {
+    return this.http.patch(`${UserAPIService.baseUrl}/update-profile`,data)
   }
 }

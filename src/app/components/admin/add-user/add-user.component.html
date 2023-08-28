@@ -1,0 +1,23 @@
+<div class="main-body">
+  <!-- <div class="close-button-block">
+        
+          </div> -->
+</div>
+
+<div class="header">
+  <div class="close-button-container" title="close">
+    <button
+      mat-icon-button
+      color="warn"
+      aria-label="close-button"
+      (click)="closeDialog($event)"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <h1 class="title">Add User</h1>
+
+  <div class="contents">
+    <app-signup [submitButtonName]="submitButton"  (adminAdduserEvent)="userAddDone($event)"    ></app-signup>
+  </div>
+</div>

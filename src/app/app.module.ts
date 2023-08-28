@@ -13,7 +13,12 @@ import { SimpleDialogComponent } from './components/common/simple-dialog/simple-
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { EditUserComponent } from './components/admin/edit-user/edit-user.component';
-
+import { FormsModule } from '@angular/forms';
+import { AddUserComponent } from './components/admin/add-user/add-user.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+import { UserHomeComponent } from './components/user/user-home/user-home.component';
+import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
+import { UserHomeContentsComponent } from './components/user/user-home-contents/user-home-contents.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,11 @@ import { EditUserComponent } from './components/admin/edit-user/edit-user.compon
     SimpleDialogComponent,
     DashboardComponent,
     EditUserComponent,
-    
+    AddUserComponent,
+    UserProfileComponent,
+    UserHomeComponent,
+    AdminLoginComponent,
+    UserHomeContentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +42,8 @@ import { EditUserComponent } from './components/admin/edit-user/edit-user.compon
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

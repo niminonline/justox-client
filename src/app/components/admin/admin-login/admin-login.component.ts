@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserAPIService } from 'src/app/services/user-api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AdminAPIService } from 'src/app/services/admin-api.service';
+import { AdminLoginResponse } from 'src/app/interface/interfaces';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-admin-login',
+  templateUrl: './admin-login.component.html',
+  styleUrls: ['./admin-login.component.scss']
 })
-export class LoginComponent {
+export class AdminLoginComponent {
+
   constructor(
     private fb: FormBuilder,
-    private userApi: UserAPIService,
+    private adminApi: AdminAPIService,
     private snackBar: MatSnackBar,
     private router: Router
   ) {}
@@ -39,7 +41,7 @@ export class LoginComponent {
     if (data.status === 'VALID') {
       const { email, password } = data.value;
       const credentials = { email, password };
-      this.userApi.login(credentials).subscribe((response) => {
+      this.adminApi.login(credentials).subscribe((response) => {
         if (response.status !== 'OK' && response.message) {
           Swal.fire("Error", response.message, "error");
         }
@@ -64,7 +66,7 @@ export class LoginComponent {
 
 
 
-          this.router.navigate(['/home']);
+          this.router.navigate(['/admin/dashboard']);
         }
       });
     }
@@ -76,4 +78,5 @@ export class LoginComponent {
     event.preventDefault();
     this.hide = !this.hide;
   }
+
 }

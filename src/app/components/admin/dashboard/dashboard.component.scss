@@ -1,46 +1,63 @@
 .main-body {
-    width: 90%;
-    margin: auto;
-
+  width: 90%;
+  margin: auto;
 }
 
 .title {
-    margin: 20px;
-    text-align: center;
+  margin: 20px;
+  text-align: center;
 }
 
+.search-block {
+  text-align: center;
+  margin: auto;
+  .search-field-block {
+    min-width: 400px;
+  }
+}
+
+.add-floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  button:hover {
+    scale: 1.1;
+  }
+}
 .user-card {
-    max-width: 400px;
-    margin:10px;
+  max-width: 400px;
+  margin: 10px;
 }
 
 .user-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
 }
 
 .row {
-    display: flex;
+  display: flex;
 }
 
 .head {
-    width: 50%;
+  width: 50%;
 }
 
 mat-card-content {
-    margin: 10px
+  margin: 10px;
 }
 
 mat-card-actions {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    button {
-        margin: 10px;
-    }
+  button {
+    margin: 10px;
+  }
 }
-.display-users{
-    display: flex;
-    flex-wrap: wrap;
-    gap:10px;
+
+.display-users {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable } from 'rxjs';
-import { UsersApiResponse } from '../interface/interfaces';
 import { ApiResponse } from '../interface/interfaces';
+import { AdminLoginResponse } from '../interface/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,9 @@ export class AdminAPIService {
 
   constructor(private http:HttpClient) { }
   private static readonly baseUrl = 'http://localhost:5000/admin' as const;
+  login(data:object):Observable<AdminLoginResponse>{
+    return this.http.post(`${AdminAPIService.baseUrl}/login`,data)
+  }
   loadUsers():Observable<any>{
     return this.http.get(`${AdminAPIService.baseUrl}/load-users`)
   }

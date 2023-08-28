@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { UserAPIService } from 'src/app/services/user-api.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AdminAPIService } from 'src/app/services/admin-api.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-user',
@@ -16,7 +18,8 @@ export class EditUserComponent {
     private userApi: UserAPIService,
     private adminApi: AdminAPIService,
     public dialogRef: MatDialogRef<EditUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: string }
+    @Inject(MAT_DIALOG_DATA) private data: { id: string },
+    private router: Router,
   ) {}
   submitted: boolean = false;
   passwordHide: boolean = true;
@@ -71,7 +74,8 @@ export class EditUserComponent {
     }
   }
 
-  closeDialog() {
+  closeDialog(event: Event) {
+    event.preventDefault();
     this.dialogRef.close();
   }
 
@@ -85,8 +89,26 @@ export class EditUserComponent {
         mobile: groupData.value.mobile,
       };
       this.adminApi.updateUser(data).subscribe((response)=>{
-        console.log(response);
+        // console.log(response);
+       
+          if (response.status !== 'OK') {
+            Swal.fire(response.status, response.message, 'error');
+          } else {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'User updated successfully',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            const currentUrl = this.router.url;
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigateByUrl(currentUrl);
+  });
+
+        }
       })
+      this.dialogRef.close();
 
     }
   };

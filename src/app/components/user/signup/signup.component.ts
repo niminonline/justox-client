@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from '../../common/simple-dialog/simple-dialog.component';
 import { DialogData } from 'src/app/interface/interfaces';
 import { UserAPIService } from 'src/app/services/user-api.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -19,13 +21,15 @@ export class SignupComponent {
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private userApi: UserAPIService
+    private userApi: UserAPIService,
+    private router:Router
   ) {}
   submitted: boolean = false;
   passwordHide: boolean = true;
   confirmPasswordHide: boolean = true;
   signupGroup!: FormGroup;
   selectedImage: File | null = null;
+  @Input() submitButtonName:string="Signup"
 
   ngOnInit() {
     this.signupGroup = this.fb.group(
@@ -58,6 +62,25 @@ export class SignupComponent {
     );
   }
 
+  @Output() toParentEvent:EventEmitter<FormGroup>= new EventEmitter<FormGroup>();
+
+  toParent(data:FormGroup){
+    event?.preventDefault();
+    this.toParentEvent.emit(data);
+
+  }
+
+
+
+@Output() adminAdduserEvent:EventEmitter<string>= new EventEmitter<string>();
+
+
+
+  adminUserAddEmit(status:string){
+    this.adminAdduserEvent.emit(status);
+  }
+
+
   onImageChange(event: any) {
     console.log(event);
     if (event.target.files && event.target.files.length) {
@@ -89,15 +112,37 @@ export class SignupComponent {
       // console.log(body);
       this.userApi.signup(body).subscribe((response) => {
         console.log(response);
+        if(response && response.status!=='OK'){
+
+          Swal.fire("Error", response.message, "error");
+        }
+        else{
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'User registered successfully',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+
+          const currentUrl:string = this.router.url;
+          console.log("url:"+currentUrl);
+          if(currentUrl=='/login'){
+            this.router.navigate(['/home']);
+          }
+          
+          else{
+            if(response.status)
+            this.adminUserAddEmit(response.status)
+            
+          }
+
+
+        }
       });
     } else {
-      this.dialog.open(SimpleDialogComponent, {
-        width: '400px',
-        data: {
-          title: 'Error',
-          content: 'Please fill the fields without errors',
-        } as DialogData,
-      });
+      Swal.fire("Error", "Please fill the fields without errors", "error");
     }
   }
 }
