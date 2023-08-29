@@ -44,6 +44,13 @@ export class LoginComponent {
           Swal.fire("Error", response.message, "error");
         }
         else{
+
+          if(response.token && response.userData?._id){
+
+            localStorage.setItem('userToken',response.token)
+            localStorage.setItem('_id',response.userData._id)
+          }
+
           const Toast = Swal.mixin({
             toast: true,
             position: 'bottom',
@@ -60,11 +67,9 @@ export class LoginComponent {
             icon: 'success',
             title: 'Signed in successfully'
           })
-
-
-
-
-          this.router.navigate(['/home']);
+          console.log(response);
+          
+          this.router.navigate(['/user-home']);
         }
       });
     }

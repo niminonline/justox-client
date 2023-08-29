@@ -19,6 +19,9 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
 import { UserHomeContentsComponent } from './components/user/user-home-contents/user-home-contents.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment'; 
+
 
 @NgModule({
   declarations: [
@@ -44,6 +47,10 @@ import { UserHomeContentsComponent } from './components/user/user-home-contents/
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, 
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

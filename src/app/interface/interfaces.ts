@@ -7,11 +7,12 @@ export interface DialogData {
   }
 
   export interface UserType {
-    username:string
-    email:string
-    mobile:string
-    password:string
-    image:any
+    _id:string,
+    username:string,
+    email:string,
+    mobile:string,
+    password:string,
+    image:any,
     date:string
 }
 
