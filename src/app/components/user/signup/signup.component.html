@@ -105,16 +105,13 @@
         >
       </mat-form-field>
 
-      <mat-label> Choose a profile image </mat-label>
-      <input type="file" (change)="onImageChange($event)" accept="image/*" />
-      <!-- <mat-form-field appearance="outline">
-          <mat-label>
-            Choose a profile image
-          </mat-label>
-         
-         
-  
-        </mat-form-field> -->
+
+      
+     
+      <mat-label>Select an image</mat-label>
+      <input type="file" (change)="uploadImage($event)"  formControlName="image">
+
+
 
       <button
         class="signupButton"
@@ -125,14 +122,7 @@
         {{submitButtonName}}
       </button>
 
-      <button
-        class="parentSend"
-        mat-raised-button
-        color="primary"
-        (click)="toParent(signupGroup)"
-      >
-        to parent
-      </button>
+     
 
     </form>
 

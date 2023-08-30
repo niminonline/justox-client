@@ -32,7 +32,7 @@ export class EditUserComponent {
   currentMobile!: string;
   ngOnInit() {
     this.getEditUserData(this.id);
-    console.log(this.currentUserName, this.currentEmail, this.currentMobile);
+    // console.log(this.currentUserName, this.currentEmail, this.currentMobile);
   }
 
   getEditUserData = (id: string) => {
@@ -63,14 +63,11 @@ export class EditUserComponent {
     });
   };
 
-  onImageChange(event: any) {
-    console.log(event);
-    if (event.target.files && event.target.files.length) {
-      const file = event.target.files[0];
-      if (file) {
-        this.selectedImage = file;
-      }
-      // this.signupGroup.patchValue({ image: file });
+  onImageChange(event:Event){
+    const inputElement=event.target as HTMLInputElement;
+    if(inputElement.files&& inputElement.files[0]){
+
+      const selectedImage=inputElement.files[0];
     }
   }
 
@@ -82,13 +79,21 @@ export class EditUserComponent {
   updateUser = (groupData: any) => {
     this.submitted = true;
     if (!groupData.invalid) {
+      
       const data = {
         _id: this.id,
         username: groupData.value.username,
         email: groupData.value.email,
         mobile: groupData.value.mobile,
       };
-      this.adminApi.updateUser(data).subscribe((response)=>{
+      const formData= new FormData();
+      formData.append('_id',data._id);
+      formData.append('username',data.username);
+      formData.append('email',data.email);
+      formData.append('mobile',data.mobile);
+      formData.append('image',this.selectedImage as Blob);
+
+      this.adminApi.updateUser(formData).subscribe((response)=>{
         // console.log(response);
        
           if (response.status !== 'OK') {

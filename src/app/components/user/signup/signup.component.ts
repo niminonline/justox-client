@@ -20,16 +20,15 @@ import { Router } from '@angular/router';
 export class SignupComponent {
   constructor(
     private fb: FormBuilder,
-    private dialog: MatDialog,
     private userApi: UserAPIService,
-    private router:Router
+    private router: Router
   ) {}
   submitted: boolean = false;
   passwordHide: boolean = true;
   confirmPasswordHide: boolean = true;
   signupGroup!: FormGroup;
   selectedImage: File | null = null;
-  @Input() submitButtonName:string="Signup"
+  @Input() submitButtonName: string = 'Signup';
 
   ngOnInit() {
     this.signupGroup = this.fb.group(
@@ -62,35 +61,31 @@ export class SignupComponent {
     );
   }
 
-  @Output() toParentEvent:EventEmitter<FormGroup>= new EventEmitter<FormGroup>();
+  @Output() toParentEvent: EventEmitter<FormGroup> =
+    new EventEmitter<FormGroup>();
 
-  toParent(data:FormGroup){
+  toParent(data: FormGroup) {
     event?.preventDefault();
     this.toParentEvent.emit(data);
-
   }
 
+  @Output() adminAdduserEvent: EventEmitter<string> =
+    new EventEmitter<string>();
 
-
-@Output() adminAdduserEvent:EventEmitter<string>= new EventEmitter<string>();
-
-
-
-  adminUserAddEmit(status:string){
+  adminUserAddEmit(status: string) {
     this.adminAdduserEvent.emit(status);
   }
 
-
-  onImageChange(event: any) {
-    console.log(event);
-    if (event.target.files && event.target.files.length) {
-      const file = event.target.files[0];
-      if (file) {
-        this.selectedImage = file;
-      }
-      // this.signupGroup.patchValue({ image: file });
+  uploadImage(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    // console.log(event);
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.selectedImage = inputElement.files[0];
+      // console.log(this.selectedImage);
     }
   }
+
+
   passwordMatchValidator(group: AbstractControl) {
     if (group.get('password')?.value !== group.get('confirmPassword')?.value) {
       group.get('confirmPassword')?.setErrors({ passwordMismatch: true });
@@ -107,16 +102,20 @@ export class SignupComponent {
         email,
         mobile,
         password,
-        image: this.selectedImage,
       };
-      // console.log(body);
-      this.userApi.signup(body).subscribe((response) => {
+      const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('mobile', mobile);
+    formData.append('password', password);
+    formData.append('image', this.selectedImage as Blob);
+ 
+      console.log("body-"+body);
+      this.userApi.signup(formData).subscribe((response) => {
         console.log(response);
-        if(response && response.status!=='OK'){
-
-          Swal.fire("Error", response.message, "error");
-        }
-        else{
+        if (response && response.status !== 'OK') {
+          Swal.fire('Error', response.message, 'error');
+        } else {
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -125,24 +124,17 @@ export class SignupComponent {
             timer: 1500,
           });
 
-
-          const currentUrl:string = this.router.url;
-          console.log("url:"+currentUrl);
-          if(currentUrl=='/login'){
+          const currentUrl: string = this.router.url;
+          console.log('url:' + currentUrl);
+          if (currentUrl == '/login') {
             this.router.navigate(['/home']);
+          } else {
+            if (response.status) this.adminUserAddEmit(response.status);
           }
-          
-          else{
-            if(response.status)
-            this.adminUserAddEmit(response.status)
-            
-          }
-
-
         }
       });
     } else {
-      Swal.fire("Error", "Please fill the fields without errors", "error");
+      Swal.fire('Error', 'Please fill the fields without errors', 'error');
     }
   }
 }

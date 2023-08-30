@@ -21,6 +21,28 @@ export class UserHomeComponent implements OnInit {
     this.getuserData();
   }
 
+  logout(){
+    localStorage.removeItem('_id');
+    localStorage.removeItem('userToken');
+    this.route.navigate(["/login"])
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title: 'Logged out successfully'
+    })
+
+  }
   getuserData() {
     const id: string | null = localStorage.getItem('_id');
     const authToken: string | null = localStorage.getItem('userToken');

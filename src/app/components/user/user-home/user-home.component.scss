@@ -12,6 +12,7 @@
   margin: 10px;
   font-size: 1rem;
   align-items: center;
+  
   li {
     display: flex;
     align-items: center;
@@ -31,4 +32,8 @@
     padding: 5px;
     margin: 0;
   }
+  .logoutButton:hover{
+    background-color: rgb(219, 38, 38);
+  }
+  
 }
