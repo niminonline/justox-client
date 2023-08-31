@@ -3,13 +3,10 @@ import { AdminAPIService } from 'src/app/services/admin-api.service';
 import { UserType } from 'src/app/interface/interfaces';
 import { UsersApiResponse } from 'src/app/interface/interfaces';
 import { MatDialog } from '@angular/material/dialog';
-import { SimpleDialogComponent } from '../../common/simple-dialog/simple-dialog.component';
-import { DialogData } from 'src/app/interface/interfaces';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { AddUserComponent } from '../add-user/add-user.component';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -17,23 +14,23 @@ import { AddUserComponent } from '../add-user/add-user.component';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-
-  searchString:string;
+  searchString: string;
+  readonly serverUrl = `http://localhost:5000`;
   constructor(
     private adminApi: AdminAPIService,
     private dialog: MatDialog,
     private router: Router
   ) {
-    this.searchString=''
+    this.searchString = '';
   }
+
   ngOnInit() {
     this.loadUsers();
   }
 
-  addUser(){
-    this.dialog.open(AddUserComponent,{width:'500px',height:'800px'});
+  addUser() {
+    this.dialog.open(AddUserComponent, { width: '500px', height: '800px' });
   }
-
 
   usersData!: any;
   loadUsers() {
@@ -45,27 +42,25 @@ export class DashboardComponent {
     });
   }
 
-  clearSearch(){
-    this.searchString='';
+  clearSearch() {
+    this.searchString = '';
     this.loadUsers();
   }
 
-  doSearch(){
-    if(this.searchString.trim()){
-
-    
-    this.usersData= this.usersData.filter((item:any)=>
-    {
-      return (
-        item.username.toLowerCase().includes(this.searchString.toLowerCase()) ||
-        item.email.toLowerCase().includes(this.searchString.toLowerCase()) ||
-        item.mobile.includes(this.searchString.toLowerCase())
-      );
-  })
-}
-else{
-  this.loadUsers();
-}
+  doSearch() {
+    if (this.searchString.trim()) {
+      this.usersData = this.usersData.filter((item: any) => {
+        return (
+          item.username
+            .toLowerCase()
+            .includes(this.searchString.toLowerCase()) ||
+          item.email.toLowerCase().includes(this.searchString.toLowerCase()) ||
+          item.mobile.includes(this.searchString.toLowerCase())
+        );
+      });
+    } else {
+      this.loadUsers();
+    }
   }
 
   deleteUser = (id: string) => {
@@ -102,7 +97,11 @@ else{
     });
   };
 
-  editUser =(id:string)=>{
-    this.dialog.open(EditUserComponent, {width: '400px',height:'600px',data: { id: id }});
-  }
+  editUser = (id: string) => {
+    this.dialog.open(EditUserComponent, {
+      width: '400px',
+      height: '600px',
+      data: { id: id },
+    });
+  };
 }

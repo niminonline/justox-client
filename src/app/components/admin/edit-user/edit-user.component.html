@@ -1,7 +1,6 @@
 <div class="signup-container">
   <h1 class="heading">Update User</h1>
   <mat-card class="signupCard">
-
     <form
       [formGroup]="signupGroup"
       (ngSubmit)="updateUser(signupGroup)"
@@ -27,7 +26,6 @@
         <mat-error *ngIf="signupGroup.get('email')?.errors?.['pattern']"
           >Enter a valid email address</mat-error
         >
-
       </mat-form-field>
 
       <mat-form-field appearance="outline">

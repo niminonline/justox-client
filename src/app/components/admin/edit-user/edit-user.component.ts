@@ -19,8 +19,23 @@ export class EditUserComponent {
     private adminApi: AdminAPIService,
     public dialogRef: MatDialogRef<EditUserComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { id: string },
-    private router: Router,
-  ) {}
+    private router: Router
+  ) {
+    this.signupGroup = this.fb.group({
+      username: [
+        '',
+        [Validators.required, Validators.pattern('^[A-Za-z \\.]+')],
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[^ ][a-z.\\-_0-9]+@[a-z0-9]+\\.[a-z]{2,10}'),
+        ],
+      ],
+      mobile: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
+    });
+  }
   submitted: boolean = false;
   passwordHide: boolean = true;
   confirmPasswordHide: boolean = true;
@@ -37,37 +52,25 @@ export class EditUserComponent {
 
   getEditUserData = (id: string) => {
     this.adminApi.getEditUserData(id).subscribe((response) => {
+      console.log(response);
       if (response.userData) {
         this.currentUserName = response.userData?.username;
         this.currentEmail = response.userData?.email;
         this.currentMobile = response.userData?.mobile;
-
-        this.signupGroup = this.fb.group({
-          username: [
-            this.currentUserName,
-            [Validators.required, Validators.pattern('^[A-Za-z \\.]+')],
-          ],
-          email: [
-            this.currentEmail,
-            [
-              Validators.required,
-              Validators.pattern('^[^ ][a-z.\\-_0-9]+@[a-z0-9]+\\.[a-z]{2,10}'),
-            ],
-          ],
-          mobile: [
-            this.currentMobile,
-            [Validators.required, Validators.pattern('^\\d{10}$')],
-          ],
-        });
       }
+
+      this.signupGroup.setValue({
+        username: this.currentUserName,
+        email: this.currentEmail,
+        mobile: this.currentMobile,
+      });
     });
   };
 
-  onImageChange(event:Event){
-    const inputElement=event.target as HTMLInputElement;
-    if(inputElement.files&& inputElement.files[0]){
-
-      const selectedImage=inputElement.files[0];
+  onImageChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files[0]) {
+      const selectedImage = inputElement.files[0];
     }
   }
 
@@ -79,42 +82,41 @@ export class EditUserComponent {
   updateUser = (groupData: any) => {
     this.submitted = true;
     if (!groupData.invalid) {
-      
       const data = {
         _id: this.id,
         username: groupData.value.username,
         email: groupData.value.email,
         mobile: groupData.value.mobile,
       };
-      const formData= new FormData();
-      formData.append('_id',data._id);
-      formData.append('username',data.username);
-      formData.append('email',data.email);
-      formData.append('mobile',data.mobile);
-      formData.append('image',this.selectedImage as Blob);
+      const formData = new FormData();
+      formData.append('_id', data._id);
+      formData.append('username', data.username);
+      formData.append('email', data.email);
+      formData.append('mobile', data.mobile);
+      formData.append('image', this.selectedImage as Blob);
 
-      this.adminApi.updateUser(formData).subscribe((response)=>{
+      this.adminApi.updateUser(formData).subscribe((response) => {
         // console.log(response);
-       
-          if (response.status !== 'OK') {
-            Swal.fire(response.status, response.message, 'error');
-          } else {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'User updated successfully',
-              showConfirmButton: false,
-              timer: 1500,
+
+        if (response.status !== 'OK') {
+          Swal.fire(response.status, response.message, 'error');
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'User updated successfully',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          const currentUrl = this.router.url;
+          this.router
+            .navigateByUrl('/', { skipLocationChange: true })
+            .then(() => {
+              this.router.navigateByUrl(currentUrl);
             });
-            const currentUrl = this.router.url;
-  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    this.router.navigateByUrl(currentUrl);
-  });
-
         }
-      })
+      });
       this.dialogRef.close();
-
     }
   };
 }
