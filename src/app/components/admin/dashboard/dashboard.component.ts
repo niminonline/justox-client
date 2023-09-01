@@ -15,7 +15,8 @@ import { AddUserComponent } from '../add-user/add-user.component';
 })
 export class DashboardComponent {
   searchString: string;
-  readonly serverUrl = `http://localhost:5000`;
+  readonly imageUrl:string ="http://localhost:5000/public/images/" as const;
+  readonly serverUrl:string = `http://localhost:5000` as const;
   constructor(
     private adminApi: AdminAPIService,
     private dialog: MatDialog,

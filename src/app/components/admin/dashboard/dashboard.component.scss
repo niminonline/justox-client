@@ -29,7 +29,11 @@
   max-width: 400px;
   margin: 10px;
 }
-
+.card-header{
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
 .user-image {
   background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
   background-size: cover;
@@ -60,4 +64,8 @@ mat-card-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+.user-avatar {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
 }
