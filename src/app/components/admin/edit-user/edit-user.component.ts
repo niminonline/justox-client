@@ -70,7 +70,7 @@ export class EditUserComponent {
   onImageChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files[0]) {
-      const selectedImage = inputElement.files[0];
+      this.selectedImage = inputElement.files[0];
     }
   }
 
