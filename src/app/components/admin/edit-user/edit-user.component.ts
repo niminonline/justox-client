@@ -6,6 +6,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AdminAPIService } from 'src/app/services/admin-api.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-user',
@@ -35,6 +36,13 @@ export class EditUserComponent {
       ],
       mobile: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
     });
+
+    this.admin_id = localStorage.getItem('admin_id');
+    this.authToken = localStorage.getItem('adminToken');
+    this.headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${this.authToken}`
+    );
   }
   submitted: boolean = false;
   passwordHide: boolean = true;
@@ -45,13 +53,16 @@ export class EditUserComponent {
   currentUserName!: string;
   currentEmail!: string;
   currentMobile!: string;
+  admin_id: string | null;
+  authToken: string | null;
+  headers: HttpHeaders;
   ngOnInit() {
     this.getEditUserData(this.id);
     // console.log(this.currentUserName, this.currentEmail, this.currentMobile);
   }
 
   getEditUserData = (id: string) => {
-    this.adminApi.getEditUserData(id).subscribe((response) => {
+    this.adminApi.getEditUserData(id, this.headers).subscribe((response) => {
       console.log(response);
       if (response.userData) {
         this.currentUserName = response.userData?.username;
@@ -95,7 +106,7 @@ export class EditUserComponent {
       formData.append('mobile', data.mobile);
       formData.append('image', this.selectedImage as Blob);
 
-      this.adminApi.updateUser(formData).subscribe((response) => {
+      this.adminApi.updateUser(formData, this.headers).subscribe((response) => {
         // console.log(response);
 
         if (response.status !== 'OK') {

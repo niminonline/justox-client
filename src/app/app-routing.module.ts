@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/user/home/home.component';
-import { LoginSignupFrameComponent } from './components/common/login-signup-frame/login-signup-frame.component';
+import { LoginSignupFrameComponent } from './components/user/login-signup-frame/login-signup-frame.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';

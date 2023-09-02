@@ -1,31 +1,30 @@
-export interface Interfaces {
-}
+export interface Interfaces {}
 export interface DialogData {
-    title: string;
-    content: string;
-    buttonText:string
-  }
+  title: string;
+  content: string;
+  buttonText: string;
+}
 
-  export interface UserType {
-    _id:string,
-    username:string,
-    email:string,
-    mobile:string,
-    password:string,
-    image:any,
-    date:string
+export interface UserType {
+  _id: string;
+  username: string;
+  email: string;
+  mobile: string;
+  password: string;
+  image: any;
+  date: string;
 }
 
 export interface AdminType {
-  email:string,
-  password:string
+  email: string;
+  password: string;
 }
 
-export interface ApiResponse{
-  message?:string,
-  status?:string,
-  userData?:UserType,
-  token?:string
+export interface ApiResponse {
+  message?: string;
+  status?: string;
+  userData?: UserType;
+  token?: string;
 }
 
 export interface UsersApiResponse {
@@ -34,14 +33,18 @@ export interface UsersApiResponse {
   status: string;
 }
 
-export interface AdminLoginResponse{
-
+export interface AdminLoginResponse {
   adminData?: {
-    _id?: string,
-    email?: string,
-    password?:string
-},
-adminToken?:string,
-message?: string,
-status?: string
+    _id?: string;
+    email?: string;
+    password?: string;
+  };
+  adminToken?: string;
+  message?: string;
+  status?: string;
+}
+
+export interface verifyTokenResult {
+  status?: string;
+  message?: string;
 }

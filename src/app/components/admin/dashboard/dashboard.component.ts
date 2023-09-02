@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,14 +16,24 @@ import { AddUserComponent } from '../add-user/add-user.component';
 })
 export class DashboardComponent {
   searchString: string;
-  readonly imageUrl:string ="http://localhost:5000/public/images/" as const;
-  readonly serverUrl:string = `http://localhost:5000` as const;
+  readonly imageUrl: string = 'http://localhost:5000/public/images/' as const;
+  readonly serverUrl: string = `http://localhost:5000` as const;
+  admin_id: string | null;
+  authToken: string | null;
+  headers: HttpHeaders;
+
   constructor(
     private adminApi: AdminAPIService,
     private dialog: MatDialog,
     private router: Router
   ) {
     this.searchString = '';
+    this.admin_id = localStorage.getItem('admin_id');
+    this.authToken = localStorage.getItem('adminToken');
+    this.headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${this.authToken}`
+    );
   }
 
   ngOnInit() {
@@ -35,12 +46,34 @@ export class DashboardComponent {
 
   usersData!: any;
   loadUsers() {
-    this.adminApi.loadUsers().subscribe((response: UsersApiResponse) => {
-      if (response && response.usersData) {
-        this.usersData = response.usersData;
-        // console.log(this.usersData);
-      }
-    });
+    // console.log('id-', id);
+    // console.log('token', authToken);
+
+    if (this.admin_id && this.authToken) {
+      this.adminApi.loadUsers(this.headers).subscribe(
+        (response: UsersApiResponse) => {
+          if (response.status !== 'OK') {
+            if (response.status == 'Authentication Failure') {
+              Swal.fire('Error', 'Unauthorized Access', 'error');
+              this.router.navigate(['/admin/login']);
+            } else {
+              Swal.fire(response.status, response.message, 'error');
+            }
+          } else {
+            if (response && response.usersData) {
+              this.usersData = response.usersData;
+              // console.log(this.usersData);
+            }
+          }
+        },
+        (error) => {
+          console.error('An error occurred:', error);
+        }
+      );
+    } else {
+      Swal.fire('Error', 'Unauthorized Access', 'error');
+      this.router.navigate(['/admin/login']);
+    }
   }
 
   clearSearch() {
@@ -74,26 +107,64 @@ export class DashboardComponent {
       confirmButtonText: 'Yes',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.adminApi.deleteUser(id).subscribe((response) => {
-          // console.log(response);
-          if (response.status !== 'OK') {
-            Swal.fire(response.status, response.message, 'error');
-          } else {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'User deleted successfully',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            const currentUrl = this.router.url;
-            this.router
-              .navigateByUrl('/', { skipLocationChange: true })
-              .then(() => {
-                this.router.navigateByUrl(currentUrl);
-              });
-          }
-        });
+        if (this.admin_id && this.authToken) {
+          this.adminApi.deleteUser(id, this.headers).subscribe(
+            (response) => {
+              if (response.status !== 'OK') {
+                if (response.status == 'Authentication Failure') {
+                  Swal.fire('Error', 'Unauthorized Access', 'error');
+                  this.router.navigate(['/admin/login']);
+                } else {
+                  Swal.fire(response.status, response.message, 'error');
+                }
+
+                // Swal.fire('Error', 'Unauthorized Access', 'error');
+                // this.router.navigate(['/admin/login']);
+              } else {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'User deleted successfully',
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                const currentUrl = this.router.url;
+                this.router
+                  .navigateByUrl('/', { skipLocationChange: true })
+                  .then(() => {
+                    this.router.navigateByUrl(currentUrl);
+                  });
+              }
+            },
+            (error) => {
+              console.error('An error occurred:', error);
+            }
+          );
+        } else {
+          Swal.fire('Error', 'Unauthorized Access', 'error');
+          this.router.navigate(['/admin/login']);
+        }
+
+        // this.adminApi.deleteUser(id,this.headers).subscribe((response) => {
+        //   // console.log(response);
+        //   if (response.status !== 'OK') {
+        //     Swal.fire(response.status, response.message, 'error');
+        //   } else {
+        //     Swal.fire({
+        //       position: 'center',
+        //       icon: 'success',
+        //       title: 'User deleted successfully',
+        //       showConfirmButton: false,
+        //       timer: 1500,
+        //     });
+        //     const currentUrl = this.router.url;
+        //     this.router
+        //       .navigateByUrl('/', { skipLocationChange: true })
+        //       .then(() => {
+        //         this.router.navigateByUrl(currentUrl);
+        //       });
+        //   }
+        // });
       }
     });
   };

@@ -24,7 +24,8 @@ export class UserAPIService {
       options
     );
   };
-  updateProfile = (data: object): Observable<ApiResponse> => {
-    return this.http.patch(`${UserAPIService.baseUrl}/update-profile`, data);
+  updateProfile = (data: object,headers: HttpHeaders): Observable<ApiResponse> => {
+    const options = { headers: headers };
+    return this.http.patch(`${UserAPIService.baseUrl}/update-profile`, data,options);
   };
 }
