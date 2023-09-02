@@ -1,0 +1,25 @@
+.main-body{
+    width: 400px;
+    padding: 30px;
+}
+.header{
+    text-align: center;
+}
+
+.image-field{
+    font-size: 1.1rem;
+}
+.image-preview{
+    max-width: 200px;
+    max-height: 200px;
+}
+.button-block{
+    gap:20px;
+    display: flex;
+    justify-content: center;
+    margin:30px;
+}
+
+.contents{
+    text-align: center;
+}

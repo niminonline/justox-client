@@ -1,0 +1,22 @@
+<div class="main-body">
+
+    <div class="header">
+        <h1>Upload Image</h1>
+    </div>
+
+    <div class="contents">
+        <form enctype="multipart/form-data" [formGroup]="fileUploadGroup" (ngSubmit)="imageSubmit(fileUploadGroup)">
+        <label for="Choose an image"></label>
+        <input class="image-field" type="file" formControlName="imageField" (change) ="imageOnChange($event)">
+          <mat-error *ngIf=" submitted&& fileUploadGroup.get('imageField')?.errors" > Please select an image</mat-error>  
+        <div class="image-preview">
+        
+        </div>
+        <div class="button-block">  
+
+            <button mat-raised-button color="primary" type="submit"> Update</button>
+            <button mat-raised-button color="warn" (click)="closeDialog()"> Cancel</button>
+        </div>
+    </form>
+    </div>
+</div>

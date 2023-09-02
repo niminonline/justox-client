@@ -28,4 +28,8 @@ export class UserAPIService {
     const options = { headers: headers };
     return this.http.patch(`${UserAPIService.baseUrl}/update-profile`, data,options);
   };
+  updateImage = (data: object,headers: HttpHeaders): Observable<ApiResponse> => {
+    const options = { headers: headers };
+    return this.http.put(`${UserAPIService.baseUrl}/update-image`, data,options);
+  };
 }

@@ -78,7 +78,7 @@ export class SignupComponent {
 
   uploadImage(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    // console.log(event);
+    // console.log(inputElement);
     if (inputElement.files && inputElement.files.length > 0) {
       this.selectedImage = inputElement.files[0];
       // console.log(this.selectedImage);
@@ -110,9 +110,9 @@ export class SignupComponent {
     formData.append('password', password);
     formData.append('image', this.selectedImage as Blob);
  
-      console.log("body-"+body);
+      // console.log("body-"+formData);
       this.userApi.signup(formData).subscribe((response) => {
-        console.log(response);
+        // console.log(response);
         if (response && response.status !== 'OK') {
           Swal.fire('Error', response.message, 'error');
         } else {
@@ -125,9 +125,12 @@ export class SignupComponent {
           });
 
           const currentUrl: string = this.router.url;
-          console.log('url:' + currentUrl);
+          // console.log('url:' + currentUrl);
           if (currentUrl == '/login') {
-            this.router.navigate(['/home']);
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigateByUrl('/login'); });
+
+            // this.router.navigate(['/home']);
           } else {
             if (response.status) this.adminUserAddEmit(response.status);
           }

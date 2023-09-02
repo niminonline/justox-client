@@ -4,47 +4,38 @@
   </div>
 
   <div class="contents">
-
-
-    
-    <mat-card class="user-card" >
-      <mat-card-header>
-        <div mat-card-avatar class="user-avatar"></div>
-        <mat-card-title>username</mat-card-title>
-        <mat-card-subtitle> </mat-card-subtitle>
-      </mat-card-header>
-      <img
-        mat-card-image
-        class="user-image"
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-        alt="User image"
-      />
-      <mat-card-content>
-        <div class="row">
-          <div class="head">
-            <h4><strong>Email:</strong></h4>
-          </div>
-          <div class="content">
-            <h4>email id</h4>
+    <div class="user-profile-block">
+      <div class="thumbnail-block" [ngStyle]="{ 'background-color': 'green' }">
+        <div class="thumbnail">
+          <div class="edit-thumbnail" (click)="updateImage()">
+            <p>Update image</p>
           </div>
         </div>
-        <div class="row">
-          <div class="head">
-            <h4><strong>Mobile:</strong></h4>
-          </div>
-          <div class="content">
-            <h4>mobile </h4>
-          </div>
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary">
-          Edit
-        </button>
-        <button mat-raised-button color="warn">
-          Delete
-        </button>
-      </mat-card-actions>
-    </mat-card>
+      </div>
+      <div class="user-container">
+        <table class="user-table">
+          <tr>
+            <th>Name</th>
+            <td>nyname</td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>myEmail</td>
+          </tr>
+          <tr>
+            <th>Mobile</th>
+            <td>mymobile</td>
+          </tr>
+          <tr>
+            <th>Profile created at</th>
+            <td>creation date</td>
+          </tr>
+          <tr>
+            <th>Profile modified at</th>
+            <td>modified date</td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
