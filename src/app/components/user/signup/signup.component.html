@@ -28,11 +28,6 @@
           >Enter a valid email address</mat-error
         >
 
-        <!-- <mat-error *ngIf="signupGroup.get('email')?.errors?.['required']">Email is required
-        </mat-error>
-        <mat-error *ngIf="signupGroup.get('email')?.errors?.['pattern']">
-          Enter a valid email address
-        </mat-error> -->
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -107,10 +102,12 @@
 
 
       
-     
-      <mat-label>Select an image</mat-label>
-      <input type="file" (change)="uploadImage($event)"  formControlName="image">
+     <div class="image-upload-block">
 
+       <p class="image-upload-label">Profile image</p>
+       <input class="imageUploadField" type="file" (change)="uploadImage($event)"  formControlName="image" accept="image/*">
+
+     </div> 
 
 
       <button

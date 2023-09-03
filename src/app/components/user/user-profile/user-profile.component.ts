@@ -8,12 +8,9 @@ import { SelectImageUpdateComponent } from '../select-image-update/select-image-
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent {
-  constructor(private dialog: MatDialog ) {}
+  constructor(private dialog: MatDialog) {}
 
   updateImage() {
     this.dialog.open(SelectImageUpdateComponent);
   }
-
-
-
 }

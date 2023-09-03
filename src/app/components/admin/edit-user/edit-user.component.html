@@ -39,8 +39,16 @@
         >
       </mat-form-field>
 
-      <mat-label> Choose a profile image </mat-label>
-      <input type="file" (change)="onImageChange($event)" accept="image/*" />
+
+
+      <div class="image-upload-block">
+
+        <p class="image-upload-label">Profile image</p>
+        <input class="imageUploadField" type="file" (change)="onImageChange($event)" accept="image/*" formControlName="image">
+ 
+      </div> 
+
+
 
       <div class="button-row">
         <button

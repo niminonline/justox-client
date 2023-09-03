@@ -130,7 +130,6 @@ export class SignupComponent {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigateByUrl('/login'); });
 
-            // this.router.navigate(['/home']);
           } else {
             if (response.status) this.adminUserAddEmit(response.status);
           }

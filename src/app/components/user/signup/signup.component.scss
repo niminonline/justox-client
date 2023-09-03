@@ -21,3 +21,21 @@ mat-form-field{
 .signupButton{
     margin:20px 0px 20px 0px
 }
+.image-upload-block{
+    border: 1px solid rgb(173, 173, 173);
+    border-radius: 5px;
+    padding: 0 10px 10px 10px;
+    text-align: left;   
+}
+.image-upload-label{
+    
+    font-size: .8rem;
+    color: gray;
+    margin: 0px;
+}
+.imageUploadField{
+    font-size: 1.1rem;
+    text-align: left;
+    margin-top:5px;
+    
+}

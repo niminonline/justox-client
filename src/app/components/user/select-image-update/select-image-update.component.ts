@@ -12,7 +12,12 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./select-image-update.component.scss'],
 })
 export class SelectImageUpdateComponent {
-  constructor(private fb: FormBuilder, private userApi: UserAPIService,private router:Router, public selectImageDialog: MatDialogRef<SelectImageUpdateComponent>) {
+  constructor(
+    private fb: FormBuilder,
+    private userApi: UserAPIService,
+    private router: Router,
+    public selectImageDialog: MatDialogRef<SelectImageUpdateComponent>
+  ) {
     this._id = localStorage.getItem('_id');
     this.authToken = localStorage.getItem('userToken');
     this.headers = new HttpHeaders().set(
@@ -36,17 +41,14 @@ export class SelectImageUpdateComponent {
     }
   }
 
-
   fileUploadGroup: FormGroup = this.fb.group({
     imageField: ['', Validators.required],
   });
 
-
-  closeDialog(){
+  closeDialog() {
     event?.preventDefault();
     this.selectImageDialog.close();
   }
-
 
   imageSubmit(group: FormGroup) {
     event?.preventDefault();
@@ -58,8 +60,6 @@ export class SelectImageUpdateComponent {
 
     if (this._id && this.authToken)
       this.userApi.updateImage(formData, this.headers).subscribe((response) => {
-
-      
         this.closeDialog();
         if (response.status !== 'OK') {
           Swal.fire(response.status, response.message, 'error');
@@ -78,7 +78,6 @@ export class SelectImageUpdateComponent {
               this.router.navigateByUrl(currentUrl);
             });
         }
-
       });
   }
 }
