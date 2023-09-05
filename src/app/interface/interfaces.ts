@@ -11,8 +11,10 @@ export interface UserType {
   email: string;
   mobile: string;
   password: string;
-  image: any;
-  date: string;
+  image: string;
+  date: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface AdminType {
