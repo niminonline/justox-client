@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AdminAPIService } from 'src/app/services/admin-api.service';
-import { AdminLoginResponse } from 'src/app/interface/interfaces';
 import { verifyTokenResult } from 'src/app/interface/interfaces';
 import { HttpHeaders } from '@angular/common/http';
 

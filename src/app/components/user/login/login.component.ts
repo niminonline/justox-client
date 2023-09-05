@@ -17,7 +17,6 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private userApi: UserAPIService,
-    private snackBar: MatSnackBar,
     private router: Router,
     private store: Store
   ) {}
@@ -36,7 +35,6 @@ export class LoginComponent {
   get AllControls() {
     return this.loginForm.controls;
   }
- 
 
   onSubmit(data: any) {
     this.submitted = true;
@@ -45,14 +43,11 @@ export class LoginComponent {
       const credentials = { email, password };
       this.userApi.login(credentials).subscribe((response) => {
         if (response.status !== 'OK' && response.message) {
-          Swal.fire("Error", response.message, "error");
-        }
-        else{
-
-          if(response.token && response.userData?._id){
-
-            localStorage.setItem('userToken',response.token);
-            localStorage.setItem('_id',response.userData._id);
+          Swal.fire('Error', response.message, 'error');
+        } else {
+          if (response.token && response.userData?._id) {
+            localStorage.setItem('userToken', response.token);
+            localStorage.setItem('_id', response.userData._id);
             // this.store.dispatch(retrieveUserData());
           }
 
@@ -63,23 +58,22 @@ export class LoginComponent {
             timer: 3000,
             timerProgressBar: true,
             didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer)
-              toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-          })
-          
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            },
+          });
+
           Toast.fire({
             icon: 'success',
-            title: 'Signed in successfully'
-          })
+            title: 'Signed in successfully',
+          });
           console.log(response);
-          
+
           this.router.navigate(['/user-home']);
         }
       });
-    }
-    else{
-      Swal.fire("Error", "Please fill the fields without errors", "error");
+    } else {
+      Swal.fire('Error', 'Please fill the fields without errors', 'error');
     }
   }
   togglePasswordVisibility(event: Event): void {

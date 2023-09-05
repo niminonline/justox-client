@@ -5,9 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { SimpleDialogComponent } from '../../common/simple-dialog/simple-dialog.component';
-import { DialogData } from 'src/app/interface/interfaces';
+
 import { UserAPIService } from 'src/app/services/user-api.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';

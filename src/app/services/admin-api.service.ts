@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiResponse } from '../interface/interfaces';
 import { AdminLoginResponse } from '../interface/interfaces';
 import { verifyTokenResult } from 'src/app/interface/interfaces';
+import { baseUrlAdmin } from 'config/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -22,27 +23,26 @@ export class AdminAPIService {
     );
   }
 
-  private static readonly baseUrl = 'http://localhost:5000/admin' as const;
 
   verifySession(headers: HttpHeaders): Observable<verifyTokenResult> {
     const options = { headers: headers };
-    return this.http.get(`${AdminAPIService.baseUrl}/verify-session`, options);
+    return this.http.get(`${baseUrlAdmin}/verify-session`, options);
   }
 
   login(data: object): Observable<AdminLoginResponse> {
-    return this.http.post(`${AdminAPIService.baseUrl}/login`, data);
+    return this.http.post(`${baseUrlAdmin}/login`, data);
   }
 
   loadUsers(headers: HttpHeaders): Observable<any> {
     const options = { headers: headers };
 
-    return this.http.get(`${AdminAPIService.baseUrl}/load-users`, options);
+    return this.http.get(`${baseUrlAdmin}/load-users`, options);
   }
 
   deleteUser = (id: string, headers: HttpHeaders): Observable<ApiResponse> => {
     const options = { headers: headers };
     return this.http.delete(
-      `${AdminAPIService.baseUrl}/delete-user/${id}`,
+      `${baseUrlAdmin}/delete-user/${id}`,
       options
     );
   };
@@ -52,7 +52,7 @@ export class AdminAPIService {
   ): Observable<ApiResponse> => {
     const options = { headers: headers };
     return this.http.get(
-      `${AdminAPIService.baseUrl}/get-user-data/${id}`,
+      `${baseUrlAdmin}/get-user-data/${id}`,
       options
     );
   };
@@ -62,7 +62,7 @@ export class AdminAPIService {
   ): Observable<ApiResponse> => {
     const options = { headers: headers };
     return this.http.put(
-      `${AdminAPIService.baseUrl}/update-user`,
+      `${baseUrlAdmin}/update-user`,
       data,
       options
     );

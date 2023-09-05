@@ -1,0 +1,13 @@
+.menu-spacer{
+    flex:1;
+}
+.admin-navbar{
+    background-image: linear-gradient(to right, rgb(128, 13, 242) ,rgb(198, 26, 255));
+    color: white;
+    box-shadow: 0px 0px 4px 1px rgb(59, 58, 58);
+
+}
+.admin-option-block{
+    display: flex;
+    align-items: center;
+}

@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SelectImageUpdateComponent } from '../select-image-update/select-image-update.component';
 import { Store } from '@ngrx/store';
 import { selectUserData } from '../../../state/selectors/user.selectors';
-import { retrieveUserData } from '../../../state/actions/user.actions'; 
+import { imageUrl } from 'config/constants';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -18,8 +19,7 @@ export class UserProfileComponent implements OnInit{
   mobile!: string;
   createdAt!: Date;
   image!:string;
-  readonly imageUrl: string = 'http://localhost:5000/public/images/' as const;
-  readonly serverUrl: string = `http://localhost:5000` as const;
+  public imageUrl:string=imageUrl;
 
 ngOnInit(){
   this.store.select(selectUserData).subscribe((userData) => {

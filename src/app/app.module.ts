@@ -9,7 +9,6 @@ import { HomeComponent } from './components/user/home/home.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { SignupComponent } from './components/user/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SimpleDialogComponent } from './components/common/simple-dialog/simple-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { EditUserComponent } from './components/admin/edit-user/edit-user.component';
@@ -27,6 +26,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects'; 
 import { userReducer } from './state/reducers/user.reducer';
 import { UserEffects } from './state/effects/user.effects';
+import { UserNavbarComponent } from './components/navbars/user-navbar/user-navbar.component';
+import { AdminNavbarComponent } from './components/navbars/admin-navbar/admin-navbar.component';
 
 
 @NgModule({
@@ -36,7 +37,6 @@ import { UserEffects } from './state/effects/user.effects';
     HomeComponent,
     LoginComponent,
     SignupComponent,
-    SimpleDialogComponent,
     DashboardComponent,
     EditUserComponent,
     AddUserComponent,
@@ -46,6 +46,8 @@ import { UserEffects } from './state/effects/user.effects';
     UserHomeContentsComponent,
     CommonNavbarComponent,
     SelectImageUpdateComponent,
+    UserNavbarComponent,
+    AdminNavbarComponent,
   ],
   imports: [
     BrowserModule,

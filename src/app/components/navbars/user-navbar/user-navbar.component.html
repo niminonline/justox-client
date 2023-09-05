@@ -1,0 +1,25 @@
+<mat-toolbar class="user-navbar" color="primary">
+    <span>Justox</span>
+    <div class="menu-spacer"></div>
+    <div class="header-menu">
+        <a mat-button routerLink="/user-home" >Home</a>
+        <a mat-button routerLink="/user-home/user-profile">Profile</a>
+
+        <button mat-button [matMenuTriggerFor]="menu" aria-label="User menu options">
+            <div class="user-option-block">
+                {{username ||'User'}} <mat-icon>more_vert</mat-icon>
+            </div>
+            
+          </button>
+          <mat-menu #menu="matMenu">
+                       
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>power_settings_new</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+
+      
+        
+    </div>
+  </mat-toolbar>

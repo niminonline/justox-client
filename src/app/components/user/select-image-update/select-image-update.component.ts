@@ -58,7 +58,7 @@ export class SelectImageUpdateComponent {
     formData.append('image', this.selectedFile as Blob);
     console.log('sel file--', this.selectedFile);
 
-    if (this._id && this.authToken &&group.valid)
+    if (this._id && this.authToken && group.valid)
       this.userApi.updateImage(formData, this.headers).subscribe((response) => {
         this.closeDialog();
         if (response.status !== 'OK') {

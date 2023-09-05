@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse } from 'src/app/interface/interfaces';
+import { baseUrl } from 'config/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -9,27 +10,40 @@ import { ApiResponse } from 'src/app/interface/interfaces';
 export class UserAPIService {
   constructor(private http: HttpClient) {}
 
-  private static readonly baseUrl = 'http://localhost:5000' as const;
 
   login = (data: object): Observable<ApiResponse> => {
-    return this.http.post(`${UserAPIService.baseUrl}/login`, data);
+    return this.http.post(`${baseUrl}/login`, data);
   };
   signup = (data: object): Observable<ApiResponse> => {
-    return this.http.post(`${UserAPIService.baseUrl}/signup`, data);
+    return this.http.post(`${baseUrl}/signup`, data);
   };
   getProfile = (id: string, headers: HttpHeaders): Observable<ApiResponse> => {
     const options = { headers: headers };
     return this.http.get(
-      `${UserAPIService.baseUrl}/profile?_id=${id}`,
+      `${baseUrl}/profile?_id=${id}`,
       options
     );
   };
-  updateProfile = (data: object,headers: HttpHeaders): Observable<ApiResponse> => {
+  updateProfile = (
+    data: object,
+    headers: HttpHeaders
+  ): Observable<ApiResponse> => {
     const options = { headers: headers };
-    return this.http.patch(`${UserAPIService.baseUrl}/update-profile`, data,options);
+    return this.http.patch(
+      `${baseUrl}/update-profile`,
+      data,
+      options
+    );
   };
-  updateImage = (data: object,headers: HttpHeaders): Observable<ApiResponse> => {
+  updateImage = (
+    data: object,
+    headers: HttpHeaders
+  ): Observable<ApiResponse> => {
     const options = { headers: headers };
-    return this.http.put(`${UserAPIService.baseUrl}/update-image`, data,options);
+    return this.http.put(
+      `${baseUrl}/update-image`,
+      data,
+      options
+    );
   };
 }

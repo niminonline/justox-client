@@ -1,0 +1,13 @@
+.menu-spacer{
+    flex:1;
+}
+.user-navbar{
+    background-image: linear-gradient(to right, rgb(185, 16, 84) , rgb(255, 0, 102));
+    color: white;
+    box-shadow: 0px 0px 4px 1px rgb(59, 58, 58);
+
+}
+.user-option-block{
+    display: flex;
+    align-items: center;
+}

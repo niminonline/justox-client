@@ -10,6 +10,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar'; 
 import {MatTableModule} from '@angular/material/table';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 
 const MaterialComponents = [
@@ -24,6 +26,7 @@ const MaterialComponents = [
   MatSnackBarModule,
   MatTableModule,
   MatSidenavModule,
+  MatMenuModule
 
   
 
