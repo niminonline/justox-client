@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +22,11 @@ import { UserHomeContentsComponent } from './components/user/user-home-contents/
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { CommonNavbarComponent } from './components/navbars/common-navbar/common-navbar.component';
-import { SelectImageUpdateComponent } from './components/user/select-image-update/select-image-update.component'; 
+import { SelectImageUpdateComponent } from './components/user/select-image-update/select-image-update.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects'; 
+import { userReducer } from './state/reducers/user.reducer';
+import { UserEffects } from './state/effects/user.effects';
 
 
 @NgModule({
@@ -52,9 +56,12 @@ import { SelectImageUpdateComponent } from './components/user/select-image-updat
     HttpClientModule,
     FormsModule,
     StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
+      maxAge: 25,
       logOnly: environment.production, 
     }),
+    StoreModule.forRoot({ user: userReducer }, {}),
+    EffectsModule.forRoot([UserEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [],
   bootstrap: [AppComponent],

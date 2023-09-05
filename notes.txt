@@ -37,3 +37,12 @@ import { environment } from '../environments/environment'; // Angular CLI enviro
 })
 export class AppModule {}
 ===========================
+ngrx
+
+ng add @ngrx/store
+ng add @ngrx/effects
+ng add @ngrx/entity
+ng add @ngrx/store-devtools
+
+
+=============================

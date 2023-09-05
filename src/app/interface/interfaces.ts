@@ -10,7 +10,6 @@ export interface UserType {
   username: string;
   email: string;
   mobile: string;
-  password: string;
   image: string;
   date: Date;
   createdAt: Date;

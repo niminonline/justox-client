@@ -2,13 +2,17 @@
   <div class="head">
     <h1 class="title">User Profile</h1>
   </div>
-
   <div class="contents">
     <div class="user-profile-block">
-      <div class="thumbnail-block" [ngStyle]="{ 'background-color': 'green' }">
+      <div class="thumbnail-block"  [ngStyle]="{
+        'background-image': 'url(' + imageUrl + image + ')',
+        'background-size': 'cover',
+        'background-position': 'center',
+        'margin-bottom': '0px'
+      }">
         <div class="thumbnail">
           <div class="edit-thumbnail" (click)="updateImage()">
-            <p>Update image</p>
+            <p class="updateImageText">Update image</p>
           </div>
         </div>
       </div>
@@ -16,24 +20,21 @@
         <table class="user-table">
           <tr>
             <th>Name</th>
-            <td>nyname</td>
+            <td>{{username}}</td>
           </tr>
           <tr>
             <th>Email</th>
-            <td>myEmail</td>
+            <td>{{email}}</td>
           </tr>
           <tr>
             <th>Mobile</th>
-            <td>mymobile</td>
+            <td>{{mobile}}</td>
           </tr>
           <tr>
-            <th>Profile created at</th>
-            <td>creation date</td>
+            <th>Profile created </th>
+            <td>{{createdAt | date}}</td>
           </tr>
-          <tr>
-            <th>Profile modified at</th>
-            <td>modified date</td>
-          </tr>
+          
         </table>
       </div>
     </div>

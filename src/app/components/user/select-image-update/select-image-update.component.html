@@ -16,14 +16,15 @@
         formControlName="imageField"
         (change)="imageOnChange($event)"
       />
+      <br>
       <mat-error *ngIf="submitted && fileUploadGroup.get('imageField')?.errors">
-        Please select an image</mat-error
+        *Please select an image</mat-error
       >
       <div class="image-preview"></div>
       <div class="button-block">
         <button mat-raised-button color="primary" type="submit">Update</button>
         <button mat-raised-button color="warn" (click)="closeDialog()">
-          Cancel  this.closewindow.emit();
+          Cancel
         </button>
       </div>
     </form>
