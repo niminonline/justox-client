@@ -7,7 +7,7 @@ export const authReducer = createReducer(
   initialAuthState,
   on(AuthActions.setUserId, (state, { _id }) => ({ ...state, _id })),
   on(AuthActions.clearUserId, (state) => ({ ...state, id: null })),
-  on(AuthActions.setUserHeader, (state, { headers }) => ({...state,headers})),
-  on(AuthActions.clearUserHeader, (state) => ({ ...state, _id: null })),
+  on(AuthActions.setUserToken, (state, { token }) => ({...state,token})),
+  on(AuthActions.clearUserToken, (state) => ({ ...state, _id: null })),
   on(AuthActions.clearAuthState,(state)=>(initialAuthState))
 );

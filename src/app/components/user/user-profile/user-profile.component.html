@@ -5,7 +5,7 @@
   <div class="contents">
     <div class="user-profile-block">
       <div class="thumbnail-block"  [ngStyle]="{
-        'background-image': 'url(' + imageUrl + image + ')',
+        'background-image': image ? 'url(' + imageUrl + image + ')' : 'url(' + noImage + ')',
         'background-size': 'cover',
         'background-position': 'center',
         'margin-bottom': '0px'

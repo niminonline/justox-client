@@ -29,7 +29,7 @@ export interface ApiResponse {
 }
 
 export interface UsersApiResponse {
-  usersData: UserType[];
+  usersData: Array<UserType>;
   message: string;
   status: string;
 }
@@ -49,3 +49,4 @@ export interface verifyTokenResult {
   status?: string;
   message?: string;
 }
+

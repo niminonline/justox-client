@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AdminAPIService } from 'src/app/services/admin-api.service';
@@ -36,7 +35,7 @@ export class AdminLoginComponent {
       this.adminApi
         .verifySession(headers)
         .subscribe((response: verifyTokenResult) => {
-          console.log(response);
+          // console.log(response);
           if (response.status && response.status == 'OK') {
             this.router.navigate(['/admin/dashboard']);
           } else return;
@@ -72,7 +71,7 @@ export class AdminLoginComponent {
             localStorage.setItem('adminToken', response.adminToken);
             localStorage.setItem('admin_id', response.adminData._id);
           }
-          console.log(response);
+          // console.log(response);
           const Toast = Swal.mixin({
             toast: true,
             position: 'bottom',

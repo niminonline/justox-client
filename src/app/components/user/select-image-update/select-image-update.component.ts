@@ -1,10 +1,16 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserAPIService } from 'src/app/services/user-api.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import {
+  selectUserId,
+  selectuserToken,
+} from '../../../core/selectors/auth.selectors';
+import * as UserActions from '../../../core/actions/user.actions';
 
 @Component({
   selector: 'app-select-image-update',
@@ -16,26 +22,30 @@ export class SelectImageUpdateComponent {
     private fb: FormBuilder,
     private userApi: UserAPIService,
     private router: Router,
-    public selectImageDialog: MatDialogRef<SelectImageUpdateComponent>
+    public selectImageDialog: MatDialogRef<SelectImageUpdateComponent>,
+    private store: Store
   ) {
-    this._id = localStorage.getItem('_id');
-    this.authToken = localStorage.getItem('userToken');
+    this.store.select(selectUserId).subscribe((_id) => {
+      this.id = _id;
+    });
+    this.store.select(selectuserToken).subscribe((token) => {
+      this.token = token;
+    });
     this.headers = new HttpHeaders().set(
       'Authorization',
-      `Bearer ${this.authToken}`
+      `Bearer ${this.token}`
     );
+
   }
+  id!: string | null;
+  token!: string | null;
+
   submitted: boolean = false;
   selectedFile!: File | null;
-  _id: string | null;
   headers: HttpHeaders;
-  authToken: string | null;
 
   imageOnChange(event: Event) {
-    // console.log(event);
     const imageElement: HTMLInputElement = event.target as HTMLInputElement;
-    //  console.log("element",imageElement);
-    //  console.log("files ",imageElement.files);
     if (imageElement.files && imageElement.files[0]) {
       this.selectedFile = imageElement.files[0];
     }
@@ -54,11 +64,11 @@ export class SelectImageUpdateComponent {
     event?.preventDefault();
     this.submitted = true;
     const formData: FormData = new FormData();
-    formData.append('_id', this._id as string);
+    formData.append('_id', this.id as string);
     formData.append('image', this.selectedFile as Blob);
-    console.log('sel file--', this.selectedFile);
+    // console.log('sel file--', this.selectedFile);
 
-    if (this._id && this.authToken && group.valid)
+    if (this.id && this.headers)
       this.userApi.updateImage(formData, this.headers).subscribe((response) => {
         this.closeDialog();
         if (response.status !== 'OK') {
@@ -71,12 +81,8 @@ export class SelectImageUpdateComponent {
             showConfirmButton: false,
             timer: 1500,
           });
-          const currentUrl = this.router.url;
-          this.router
-            .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => {
-              this.router.navigateByUrl(currentUrl);
-            });
+          
+          this.store.dispatch(UserActions.retrieveUserData());
         }
       });
   }

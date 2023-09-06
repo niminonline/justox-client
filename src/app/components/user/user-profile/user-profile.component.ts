@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SelectImageUpdateComponent } from '../select-image-update/select-image-update.component';
 import { Store } from '@ngrx/store';
 import { selectUserData } from '../../../core/selectors/user.selectors';
-import { imageUrl } from 'config/constants';
+import { imageUrl,noImage } from 'config/constants';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 
 
@@ -21,6 +21,7 @@ export class UserProfileComponent implements OnInit{
   createdAt!: Date;
   image!:string;
   public imageUrl:string=imageUrl;
+  public noImage:string=noImage;
 
 ngOnInit(){
   this.store.select(selectUserData).subscribe((userData) => {

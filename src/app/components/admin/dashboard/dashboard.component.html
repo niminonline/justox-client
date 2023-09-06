@@ -42,7 +42,7 @@
           mat-card-avatar
           class="user-avatar"
           [ngStyle]="{
-          'background-image': 'url(' + imageUrl + item.image + ')',
+          'background-image':  item.image ? 'url(' + imageUrl + item.image + ')' : 'url(' + noImage + ')',
           'background-size': 'cover',
           'background-position': 'center',
           'margin-bottom': '0px'
@@ -54,7 +54,7 @@
       <img
         mat-card-image
         class="user-image"
-        src="{{ imageUrl }}{{ item.image }}"
+        [src]="item.image? (imageUrl+item.image) :noImage"
         alt="User image"
       />
       <mat-card-content>

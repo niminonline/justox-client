@@ -12,14 +12,14 @@ export class UserAPIService {
 
 
   login = (data: object): Observable<ApiResponse> => {
-    return this.http.post(`${baseUrl}/login`, data);
+    return this.http.post<ApiResponse>(`${baseUrl}/login`, data);
   };
   signup = (data: object): Observable<ApiResponse> => {
-    return this.http.post(`${baseUrl}/signup`, data);
+    return this.http.post<ApiResponse>(`${baseUrl}/signup`, data);
   };
   getProfile = (id: string, headers: HttpHeaders): Observable<ApiResponse> => {
     const options = { headers: headers };
-    return this.http.get(
+    return this.http.get<ApiResponse>(
       `${baseUrl}/profile?_id=${id}`,
       options
     );
@@ -29,7 +29,7 @@ export class UserAPIService {
     headers: HttpHeaders
   ): Observable<ApiResponse> => {
     const options = { headers: headers };
-    return this.http.patch(
+    return this.http.patch<ApiResponse>(
       `${baseUrl}/update-profile`,
       data,
       options
@@ -40,7 +40,7 @@ export class UserAPIService {
     headers: HttpHeaders
   ): Observable<ApiResponse> => {
     const options = { headers: headers };
-    return this.http.put(
+    return this.http.put<ApiResponse>(
       `${baseUrl}/update-image`,
       data,
       options

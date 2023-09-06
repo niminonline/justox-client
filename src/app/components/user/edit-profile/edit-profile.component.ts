@@ -6,7 +6,8 @@ import { UserAPIService } from 'src/app/services/user-api.service';
 import Swal from 'sweetalert2';
 import { HttpHeaders } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
-
+import { selectUserId, selectuserToken } from '../../../core/selectors/auth.selectors';
+import * as UserActions from '../../../core/actions/user.actions';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -19,7 +20,8 @@ export class EditProfileComponent {
     private userApi: UserAPIService,
     public dialogRef: MatDialogRef<EditProfileComponent>,
   ) {}
-
+  id!: string | null;
+  token!: string | null;
   editProfileGroup!: FormGroup;
   username!: string | undefined;
   email!: string | undefined;
@@ -61,13 +63,47 @@ export class EditProfileComponent {
     this.submitted=true;
     if(group.valid){
 
-      console.log(group.value);
+      this.store.select(selectUserId).subscribe((_id) => {
+        this.id = _id;
+      });
+      this.store.select(selectuserToken).subscribe((token) => {
+        this.token = token;
+      });
+      const headers = new HttpHeaders().set(
+        'Authorization',
+        `Bearer ${this.token}`
+      );
+
+        const data={
+          _id:this.id,
+          username:group.value.username,
+          email:group.value.email,
+          mobile:group.value.mobile
+        }
+        this.userApi.updateProfile(data,headers).subscribe((response)=>{
+
+          if(response.status=='OK'){
+            this.store.dispatch(UserActions.retrieveUserData());
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'User updated successfully',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            // console.log("RESPonse from update profile=",response)
+          }
+          else{
+            Swal.fire(response.status, response.message, 'error');
+          }
+        })
+      
 
 
       this.dialogRef.close();
     }
     else{
-      console.log("invalid")
+      console.error("invalid")
     }
   }
 

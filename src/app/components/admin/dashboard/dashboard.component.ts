@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AdminAPIService } from 'src/app/services/admin-api.service';
-import { UserType } from 'src/app/interface/interfaces';
 import { UsersApiResponse } from 'src/app/interface/interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -8,7 +7,7 @@ import Swal from 'sweetalert2';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { HttpHeaders } from '@angular/common/http';
-import { imageUrl } from 'config/constants';
+import { imageUrl,noImage } from 'config/constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,17 +16,17 @@ import { imageUrl } from 'config/constants';
 })
 export class DashboardComponent {
   searchString: string;
-  
+
   admin_id: string | null;
   authToken: string | null;
   headers: HttpHeaders;
   public imageUrl: string = imageUrl;
+  public noImage: string = noImage;
 
   constructor(
     private adminApi: AdminAPIService,
     private dialog: MatDialog,
     private router: Router
-    
   ) {
     this.searchString = '';
     this.admin_id = localStorage.getItem('admin_id');
@@ -36,7 +35,6 @@ export class DashboardComponent {
       'Authorization',
       `Bearer ${this.authToken}`
     );
-    
   }
 
   ngOnInit() {
@@ -49,8 +47,6 @@ export class DashboardComponent {
 
   usersData!: any;
   loadUsers() {
-   
-
     if (this.admin_id && this.authToken) {
       this.adminApi.loadUsers(this.headers).subscribe(
         (response: UsersApiResponse) => {
@@ -63,6 +59,7 @@ export class DashboardComponent {
             }
           } else {
             if (response && response.usersData) {
+              console.log(response)
               this.usersData = response.usersData;
             }
           }

@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserAPIService } from 'src/app/services/user-api.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Store } from '@ngrx/store';
-
-import { retrieveUserData } from 'src/app/core/actions/user.actions';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +14,6 @@ export class LoginComponent {
     private fb: FormBuilder,
     private userApi: UserAPIService,
     private router: Router,
-    private store: Store
   ) {}
   submitted: boolean = false;
   hide: boolean = true;

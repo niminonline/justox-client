@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { UserAPIService } from 'src/app/services/user-api.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AdminAPIService } from 'src/app/services/admin-api.service';
 import Swal from 'sweetalert2';
@@ -16,7 +15,6 @@ import { HttpHeaders } from '@angular/common/http';
 export class EditUserComponent {
   constructor(
     private fb: FormBuilder,
-    private userApi: UserAPIService,
     private adminApi: AdminAPIService,
     public dialogRef: MatDialogRef<EditUserComponent>,
     @Inject(MAT_DIALOG_DATA) private data: { id: string },
@@ -35,6 +33,7 @@ export class EditUserComponent {
         ],
       ],
       mobile: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
+      
     });
 
     this.admin_id = localStorage.getItem('admin_id');
@@ -63,7 +62,7 @@ export class EditUserComponent {
 
   getEditUserData = (id: string) => {
     this.adminApi.getEditUserData(id, this.headers).subscribe((response) => {
-      console.log(response);
+      // console.log(response);
       if (response.userData) {
         this.currentUserName = response.userData?.username;
         this.currentEmail = response.userData?.email;

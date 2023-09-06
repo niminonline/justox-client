@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectUserData } from 'src/app/core/selectors/user.selectors';
 import * as UserActions from '../../../core/actions/user.actions'
+import * as AuthActions from '../../../core/actions/auth.actions';
 
 @Component({
   selector: 'app-user-navbar',
@@ -27,6 +28,7 @@ logout() {
   localStorage.removeItem('_id');
   localStorage.removeItem('userToken');
   this.store.dispatch(UserActions.clearUserData());
+  this.store.dispatch(AuthActions.clearAuthState());
   this.router.navigate(['/login']);
   const Toast = Swal.mixin({
     toast: true,

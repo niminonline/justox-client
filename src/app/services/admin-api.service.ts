@@ -5,53 +5,44 @@ import { ApiResponse } from '../interface/interfaces';
 import { AdminLoginResponse } from '../interface/interfaces';
 import { verifyTokenResult } from 'src/app/interface/interfaces';
 import { baseUrlAdmin } from 'config/constants';
+import { UsersApiResponse } from '../interface/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminAPIService {
-  admin_id: string | null;
-  authToken: string | null;
-  headers: HttpHeaders;
 
-  constructor(private http: HttpClient) {
-    this.admin_id = localStorage.getItem('admin_id');
-    this.authToken = localStorage.getItem('adminToken');
-    this.headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${this.authToken}`
-    );
-  }
+  constructor(private http: HttpClient) {}
 
 
   verifySession(headers: HttpHeaders): Observable<verifyTokenResult> {
     const options = { headers: headers };
-    return this.http.get(`${baseUrlAdmin}/verify-session`, options);
+    return this.http.get<verifyTokenResult>(`${baseUrlAdmin}/verify-session`, options);
   }
 
   login(data: object): Observable<AdminLoginResponse> {
-    return this.http.post(`${baseUrlAdmin}/login`, data);
+    return this.http.post<AdminLoginResponse>(`${baseUrlAdmin}/login`, data);
   }
 
-  loadUsers(headers: HttpHeaders): Observable<any> {
+  loadUsers(headers: HttpHeaders): Observable<UsersApiResponse> {
     const options = { headers: headers };
 
-    return this.http.get(`${baseUrlAdmin}/load-users`, options);
+    return this.http.get<UsersApiResponse>(`${baseUrlAdmin}/load-users`, options);
   }
 
   deleteUser = (id: string, headers: HttpHeaders): Observable<ApiResponse> => {
     const options = { headers: headers };
-    return this.http.delete(
+    return this.http.delete<ApiResponse>(
       `${baseUrlAdmin}/delete-user/${id}`,
       options
     );
   };
   getEditUserData = (
-    id: string,
+    id: string, 
     headers: HttpHeaders
   ): Observable<ApiResponse> => {
     const options = { headers: headers };
-    return this.http.get(
+    return this.http.get<ApiResponse>(
       `${baseUrlAdmin}/get-user-data/${id}`,
       options
     );
@@ -61,7 +52,7 @@ export class AdminAPIService {
     headers: HttpHeaders
   ): Observable<ApiResponse> => {
     const options = { headers: headers };
-    return this.http.put(
+    return this.http.put<ApiResponse>(
       `${baseUrlAdmin}/update-user`,
       data,
       options
