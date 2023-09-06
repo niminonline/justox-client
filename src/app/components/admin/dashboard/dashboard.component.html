@@ -74,6 +74,22 @@
             <h4>{{ item.mobile }}</h4>
           </div>
         </div>
+        <div class="row">
+          <div class="head">
+            <h4><strong>Profile Created:</strong></h4>
+          </div>
+          <div class="content">
+            <h4>{{ item.createdAt | date }}</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="head">
+            <h4><strong>Last Updated:</strong></h4>
+          </div>
+          <div class="content">
+            <h4>{{ item.updatedAt|date }}</h4>
+          </div>
+        </div>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="editUser(item._id)">
