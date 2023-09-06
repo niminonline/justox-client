@@ -90,7 +90,7 @@ export class EditUserComponent {
     this.dialogRef.close();
   }
 
-  updateUser = (groupData: any) => {
+  updateUser = (groupData: FormGroup) => {
     this.submitted = true;
     if (!groupData.invalid) {
       const data = {

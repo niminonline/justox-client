@@ -24,10 +24,12 @@ import { CommonNavbarComponent } from './components/navbars/common-navbar/common
 import { SelectImageUpdateComponent } from './components/user/select-image-update/select-image-update.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects'; 
-import { userReducer } from './state/reducers/user.reducer';
-import { UserEffects } from './state/effects/user.effects';
+import { userReducer } from './core/reducers/user.reducer';
+import { UserEffects } from './core/effects/user.effects';
 import { UserNavbarComponent } from './components/navbars/user-navbar/user-navbar.component';
 import { AdminNavbarComponent } from './components/navbars/admin-navbar/admin-navbar.component';
+import { EditProfileComponent } from './components/user/edit-profile/edit-profile.component';
+import { authReducer } from './core/reducers/auth.reducer';
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import { AdminNavbarComponent } from './components/navbars/admin-navbar/admin-na
     SelectImageUpdateComponent,
     UserNavbarComponent,
     AdminNavbarComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,11 +60,8 @@ import { AdminNavbarComponent } from './components/navbars/admin-navbar/admin-na
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production, 
-    }),
-    StoreModule.forRoot({ user: userReducer }, {}),
+    // StoreDevtoolsModule.instrument({maxAge: 25,logOnly: environment.production}),
+    StoreModule.forRoot({ user: userReducer ,auth: authReducer}, {}),
     EffectsModule.forRoot([UserEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],

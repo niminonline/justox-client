@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 
-import { retrieveUserData } from 'src/app/state/actions/user.actions';
+import { retrieveUserData } from 'src/app/core/actions/user.actions';
 
 @Component({
   selector: 'app-login',

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAPIService } from 'src/app/services/user-api.service';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+// import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
-import { selectUserData } from '../../../state/selectors/user.selectors';
-import { retrieveUserData } from '../../../state/actions/user.actions';
+import { selectUserData } from '../../../core/selectors/user.selectors';
+// import { retrieveUserData } from '../../../state/actions/user.actions';
+import  * as UserActions from  '../../../core/actions/user.actions'
 
 @Component({
   selector: 'app-user-home',
@@ -32,6 +33,7 @@ export class UserHomeComponent implements OnInit {
   logout() {
     localStorage.removeItem('_id');
     localStorage.removeItem('userToken');
+    this.store.dispatch(UserActions.clearUserData());
     this.route.navigate(['/login']);
     const Toast = Swal.mixin({
       toast: true,
@@ -57,7 +59,7 @@ export class UserHomeComponent implements OnInit {
     const authToken: string | null = localStorage.getItem('userToken');
     console.log('id, token', id, authToken);
     if (id && authToken) {
-      this.store.dispatch(retrieveUserData());
+      this.store.dispatch(UserActions.retrieveUserData());
 
       this.store.select(selectUserData).subscribe((userData) => {
         if (userData) {

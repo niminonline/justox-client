@@ -5,3 +5,5 @@ import { createAction,props } from "@ngrx/store";
 export const storeUserData = createAction('[UserData] Store User Data', props<{ userData: UserType }>());
 
 export const retrieveUserData = createAction('[UserData] Retrieve User Data');
+
+export const clearUserData = createAction('[UserData] Clear User Data');

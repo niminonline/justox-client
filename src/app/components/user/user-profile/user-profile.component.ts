@@ -2,8 +2,9 @@ import { Component,OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectImageUpdateComponent } from '../select-image-update/select-image-update.component';
 import { Store } from '@ngrx/store';
-import { selectUserData } from '../../../state/selectors/user.selectors';
+import { selectUserData } from '../../../core/selectors/user.selectors';
 import { imageUrl } from 'config/constants';
+import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 
 
 @Component({
@@ -34,6 +35,11 @@ ngOnInit(){
 })
 }
 
+editProfile(){
+
+this.dialog.open(EditProfileComponent);
+
+}
   updateImage() {
     this.dialog.open(SelectImageUpdateComponent);
   }

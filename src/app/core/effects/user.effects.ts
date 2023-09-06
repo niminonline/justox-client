@@ -7,19 +7,9 @@ import { UserAPIService } from '../../services/user-api.service';
 import { HttpHeaders } from '@angular/common/http';
 import { UserType } from '../../interface/interfaces';
 
-
 @Injectable()
 export class UserEffects {
-  constructor(private actions$: Actions, private userService: UserAPIService) {
-    this.id = localStorage.getItem('_id');
-    const authToken: string | null = localStorage.getItem('userToken');
-    this.headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${authToken}`
-    );
-  }
-  id: string | null;
-  headers: HttpHeaders;
+  constructor(private actions$: Actions, private userService: UserAPIService) {}
 
   private defaultUser: UserType = {
     _id: '',
@@ -35,18 +25,27 @@ export class UserEffects {
   retrieveUserData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.retrieveUserData),
-      switchMap(() =>
-        this.id
-          ? this.userService.getProfile(this.id, this.headers).pipe(
-              map((response) =>
-                UserActions.storeUserData({
-                  userData: response.userData || this.defaultUser,
-                })
-              ),
-              catchError(() => of({ type: 'error' }))
-            )
-          : of({ type: 'error' })
-      )
+      switchMap(() => {
+        const id = localStorage.getItem('_id');
+        const authToken: string | null = localStorage.getItem('userToken');
+        const headers = new HttpHeaders().set(
+          'Authorization',
+          `Bearer ${authToken}`
+        );
+
+        if (!id || !headers) {
+          return of({ type: 'error' });
+        }
+
+        return this.userService.getProfile(id, headers).pipe(
+          map((response) =>
+            UserActions.storeUserData({
+              userData: response.userData || this.defaultUser,
+            })
+          ),
+          catchError(() => of({ type: 'error' }))
+        );
+      })
     )
   );
 }
