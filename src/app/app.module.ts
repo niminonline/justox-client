@@ -19,7 +19,6 @@ import { UserHomeComponent } from './components/user/user-home/user-home.compone
 import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
 import { UserHomeContentsComponent } from './components/user/user-home-contents/user-home-contents.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
 import { CommonNavbarComponent } from './components/navbars/common-navbar/common-navbar.component';
 import { SelectImageUpdateComponent } from './components/user/select-image-update/select-image-update.component';
 import { StoreModule } from '@ngrx/store';
@@ -60,7 +59,6 @@ import { authReducer } from './core/reducers/auth.reducer';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    // StoreDevtoolsModule.instrument({maxAge: 25,logOnly: environment.production}),
     StoreModule.forRoot({ user: userReducer ,auth: authReducer}, {}),
     EffectsModule.forRoot([UserEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

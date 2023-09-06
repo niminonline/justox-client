@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { selectUserData } from 'src/app/core/selectors/user.selectors';
 import { Store } from '@ngrx/store';
 import { UserAPIService } from 'src/app/services/user-api.service';

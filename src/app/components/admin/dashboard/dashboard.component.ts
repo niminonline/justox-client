@@ -59,7 +59,7 @@ export class DashboardComponent {
             }
           } else {
             if (response && response.usersData) {
-              console.log(response)
+              // console.log(response)
               this.usersData = response.usersData;
             }
           }

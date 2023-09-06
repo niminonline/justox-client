@@ -10,7 +10,7 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
 import { UserHomeContentsComponent } from './components/user/user-home-contents/user-home-contents.component';
 
 const routes: Routes = [
-  {path:'',component:HomeComponent,title:"Justox | Home"},
+  {path:'',component:HomeComponent,title:"Justox"},
   {path:"home",redirectTo:'',pathMatch:'full'},
   {path:'login',component:LoginSignupFrameComponent,title:'Justox | Login',pathMatch: 'full'},
   {path: 'user-home',component: UserHomeComponent, children: [
@@ -18,8 +18,8 @@ const routes: Routes = [
       { path: 'user-profile', component: UserProfileComponent,title:'Justox | Profile' }
     ]
   },
-  {path:'admin/login',component:AdminLoginComponent, title:'Justox | Admin Login',pathMatch: 'full'},
-  {path:'admin/dashboard',component:DashboardComponent, title:'Justox | Dashboard',pathMatch: 'full'},
+  {path:'admin/login',component:AdminLoginComponent, title:'Justox ',pathMatch: 'full'},
+  {path:'admin/dashboard',component:DashboardComponent, title:'Justox ',pathMatch: 'full'},
 ];
 
 @NgModule({

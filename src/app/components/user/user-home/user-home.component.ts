@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserAPIService } from 'src/app/services/user-api.service';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 import { selectUserData } from '../../../core/selectors/user.selectors';
-import  * as UserActions from  '../../../core/actions/user.actions';
+import * as UserActions from '../../../core/actions/user.actions';
 import * as AuthActions from '../../../core/actions/auth.actions';
 
 @Component({
@@ -15,7 +14,6 @@ import * as AuthActions from '../../../core/actions/auth.actions';
 })
 export class UserHomeComponent implements OnInit {
   constructor(
-    private userApi: UserAPIService,
     private route: Router,
     private store: Store
   ) {}
@@ -54,25 +52,15 @@ export class UserHomeComponent implements OnInit {
     });
   }
 
-  
   async getuserData() {
     const _id: string | null = localStorage.getItem('_id');
     const token: string | null = localStorage.getItem('userToken');
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${token}`
-    );
-    console.log('id, token', _id, token);
-    if(_id && token){
-
-      this.store.dispatch(AuthActions.setUserId({_id:_id}))
-      this.store.dispatch(AuthActions.setUserToken({token}));
-      
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // console.log('id, token', _id, token);
+    if (_id && token) {
+      this.store.dispatch(AuthActions.setUserId({ _id: _id }));
+      this.store.dispatch(AuthActions.setUserToken({ token }));
     }
-
-
-    
-
 
     if (_id && token) {
       this.store.dispatch(UserActions.retrieveUserData());
@@ -97,39 +85,3 @@ export class UserHomeComponent implements OnInit {
     }
   }
 }
-
-//     const id: string | null = localStorage.getItem('_id');
-//     const authToken: string | null = localStorage.getItem('userToken');
-//     const headers = new HttpHeaders().set(
-//       'Authorization',
-//       `Bearer ${authToken}`
-//     );
-
-//     // console.log('id-', id);
-//     // console.log('token', authToken);
-
-//     if (id && authToken) {
-//       this.userApi.getProfile(id, headers).subscribe(
-//         (response) => {
-//           if (response.status !== 'OK') {
-//             Swal.fire('Error', 'Unauthorized Access', 'error');
-//             this.route.navigate(['/login']);
-//           } else {
-//             if (response.userData) {
-//               this.username = response.userData.username;
-//               this.email = response.userData.email;
-//               this._id = response.userData._id;
-//               this.mobile = response.userData.mobile;
-//             }
-//           }
-//         },
-//         (error) => {
-//           console.error('An error occurred:', error);
-//         }
-//       );
-//     } else {
-//       Swal.fire('Error', 'Unauthorized Access', 'error');
-//       this.route.navigate(['/login']);
-//     }
-//   }
-// }

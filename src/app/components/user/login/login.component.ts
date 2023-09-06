@@ -62,7 +62,7 @@ export class LoginComponent {
             icon: 'success',
             title: 'Signed in successfully',
           });
-          console.log(response);
+          // console.log(response);
 
           this.router.navigate(['/user-home']);
         }
