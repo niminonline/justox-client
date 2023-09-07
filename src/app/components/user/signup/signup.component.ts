@@ -59,13 +59,13 @@ export class SignupComponent {
     );
   }
 
-  @Output() toParentEvent: EventEmitter<FormGroup> =
-    new EventEmitter<FormGroup>();
+  // @Output() toParentEvent: EventEmitter<FormGroup> =
+  //   new EventEmitter<FormGroup>();
 
-  toParent(data: FormGroup) {
-    event?.preventDefault();
-    this.toParentEvent.emit(data);
-  }
+  // toParent(data: FormGroup) {
+  //   event?.preventDefault();
+  //   this.toParentEvent.emit(data);
+  // }
 
   @Output() adminAdduserEvent: EventEmitter<string> =
     new EventEmitter<string>();
