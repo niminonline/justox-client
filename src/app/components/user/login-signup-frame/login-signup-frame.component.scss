@@ -1,7 +1,12 @@
 .l-s-frame-body{
-    width: 500px;
+    width: 600px;
     text-align: center;
     margin: 10px;
+    height: 90vh;
+    padding: 0 40px 0 40px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px); 
 }
 
 .center-container{
@@ -12,4 +17,5 @@
 .body{
     height: 100vh;
     width: 100vw;
-    background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);}
+    // background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);}
+    background-image: url("../../../../assets/images/bg-2.avif")}

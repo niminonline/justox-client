@@ -1,8 +1,14 @@
 .toggle-button-container {
   height: 100vh;
 }
+.sidebar-container{
+  backdrop-filter: blur(10px);
+}
 .body {
   display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../../../assets/images/bg-10-full.jpg");
 }
 .sidebar-menu-list {
   text-align: left;

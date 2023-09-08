@@ -1,12 +1,25 @@
-.loginCard{
-
-    border: 2px solid #3f51b5 ;
+.loginCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-radius: 5px;
-    margin-top:20px;
-    padding:20px 10px 20px 10px;
-}
+    margin-top: 20px;
+    padding: 20px 10px 20px 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
 mat-form-field{
     width: 100%;
+
+}
+matInput{
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px); 
+}
+input{
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px); 
 }
 button{
     margin-left:10px

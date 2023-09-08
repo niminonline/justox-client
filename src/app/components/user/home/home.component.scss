@@ -1,0 +1,23 @@
+.home-body{
+    background-image: url("../../../../assets/images/home.jpg");
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    
+}
+.title{
+    width:100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.Header-Text{
+    padding: 100px;
+
+    font-size: 8rem;
+}
+.Welcome-Text{
+    font-size: 4rem;
+} 
