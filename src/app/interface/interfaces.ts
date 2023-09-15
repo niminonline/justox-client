@@ -49,4 +49,3 @@ export interface verifyTokenResult {
   status?: string;
   message?: string;
 }
-
